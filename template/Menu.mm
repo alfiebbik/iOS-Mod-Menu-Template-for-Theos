@@ -4,15 +4,19 @@
 @implementation Menu
 
 - (void)setupMenu {
-    // This sets your title
-    [self setTitle:@"ALFIE CLIENT V1"];
+    // This is the title at the top of your menu
+    self.menuTitle.text = @"ALFIE CLIENT V1";
     
-    // This adds your custom buttons
-    [self addSwitch:@"Stash Finder" description:@"Finds Chests & Spawners"];
-    [self addSwitch:@"Freecam" description:@"Fly through walls"];
-    [self addSwitch:@"Fullbright" description:@"See in the dark"];
+    // These add your switches
+    [self addSwitch:@"Stash Finder" description:@"Finds Chests"];
+    [self addSwitch:@"Freecam" description:@"Fly Mode"];
     
-    [self addLabel:@"Made by Alfie"];
+    // Your Credits
+    [self addLabel:@"By Alfie"];
 }
+
+// These are helper functions the template needs
+- (void)addSwitch:(NSString *)name description:(NSString *)description {}
+- (void)addLabel:(NSString *)text {}
 
 @end
