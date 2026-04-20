@@ -1,29 +1,18 @@
-name: Build Alfie Client
-on: [push, pull_request]
-
+name: Build
+on: [push]
 jobs:
   build:
     runs-on: macos-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup Theos
+      - uses: actions/checkout@v3
+      - name: Setup
         run: |
-          sudo git clone --recursive https://github.com/theos/theos.git /opt/theos
-          sudo chown -R $(id -u):$(id -g) /opt/theos
-          echo "THEOS=/opt/theos" >> $GITHUB_ENV
-
-      - name: Setup SDK
-        run: |
-          git clone https://github.com/theos/sdks.git $THEOS/sdks
-
-      - name: Build Package
-        run: |
-          make package FINALPACKAGE=1
-          
-      - name: Upload Build
-        uses: actions/upload-artifact@v3
+          git clone --recursive https://github.com/theos/theos.git ~/theos
+          git clone https://github.com/theos/sdks.git ~/theos/sdks
+          echo "THEOS=~/theos" >> $GITHUB_ENV
+      - name: Build
+        run: make package FINALPACKAGE=1
+      - uses: actions/upload-artifact@v3
         with:
-          name: AlfieClient-Build
+          name: AlfieClient
           path: packages/*.deb
