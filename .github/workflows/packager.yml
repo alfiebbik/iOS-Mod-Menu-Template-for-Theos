@@ -5,13 +5,11 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Theos
-        run: |
-          git clone --recursive https://github.com/theos/theos.git ~/theos
-          echo "THEOS=~/theos" >> $GITHUB_ENV
-      - name: Build
+      - uses: theos/setup-theos@master
+      - name: Build Package
+        working-directory: ./template
         run: make package FINALPACKAGE=1
       - uses: actions/upload-artifact@v4
         with:
           name: AlfieClient
-          path: packages/*.deb
+          path: template/packages/*.deb
