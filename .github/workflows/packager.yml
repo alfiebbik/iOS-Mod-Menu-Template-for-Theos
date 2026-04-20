@@ -5,13 +5,8 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Setup
-        run: |
-          git clone --recursive https://github.com/theos/theos.git ~/theos
-          git clone https://github.com/theos/sdks.git ~/theos/sdks
-          echo "THEOS=~/theos" >> $GITHUB_ENV
-      - name: Build
-        run: make package FINALPACKAGE=1
+      - uses: theos/setup-theos@master
+      - run: make package
       - uses: actions/upload-artifact@v3
         with:
           name: AlfieClient
